@@ -1,0 +1,16 @@
+{
+  "technologies": [
+    {
+      "name" : "JavaScript"
+    },
+    {
+      "name" : "Python"
+    },
+    {
+      "name" : "C#"
+    },
+    {
+      "name" : "C++"
+    }
+  ]
+}
