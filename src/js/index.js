@@ -1,9 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom'
-import Techonologies from './tecnologies.json'
-import App from './App.jsx';
-
-console.log(Techonologies)
+import App from './App';
 
 render(<App />, document.getElementById('app'));
   

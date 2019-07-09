@@ -1,8 +1,8 @@
-const path = require('path');
-const MiniCssExtractPlugin  = require('mini-css-extract-plugin');
+const path = require('path')
+const MiniCssExtractPlugin  = require('mini-css-extract-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
 module.exports = {
-  mode: 'development',
   entry: {
     index: path.resolve(__dirname, 'src/js/index.js')
   },
@@ -14,10 +14,12 @@ module.exports = {
   devServer: {
     port: 9000
   },
+  devtool: 'eval-source-map',
   plugins: [
     new MiniCssExtractPlugin({
       filename: 'css/[name].css'
-    })
+    }),
+    new CleanWebpackPlugin()
   ],
   module: {
     rules: [
@@ -26,9 +28,6 @@ module.exports = {
         use: [
           {
             loader: MiniCssExtractPlugin.loader,
-            options: {
-              hmr: process.env.NODE_ENV === 'development',
-            }
           },
           'css-loader'
         ]
@@ -47,7 +46,7 @@ module.exports = {
         use: {
           loader: 'url-loader',
           options: {
-            limit: 100000
+            limit: 1000
           }
         }
       },
@@ -56,11 +55,25 @@ module.exports = {
         use: {
           loader: 'file-loader',
           options: {
-            limit: 1000000,
+            limit: 1000,
             name: 'videos/[name].[ext]'
           }
         }
       }
     ]
+  },
+  resolve: {
+    extensions: ['.js', '.jsx']
+  },
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        commons: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendors',
+          chunks: 'all'
+        }
+      }
+    }
   }
 }
